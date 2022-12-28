@@ -15,7 +15,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 </div>
 `
 const input = document.querySelector('input') as HTMLInputElement | null ;
-const enterBtn = document.querySelector('button') as HTMLInputElement | null;
+const enterBtn = document.querySelector('button') as HTMLButtonElement | null;
 const result = document.querySelector('h3') as HTMLInputElement | null;
 
 const setupCounter = (input : HTMLInputElement | null, button : HTMLButtonElement | null, element: HTMLElement | null) => {
