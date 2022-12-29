@@ -16,6 +16,7 @@
 *, *:focus{
   outline: none;
   color: #fffb;
+  text-shadow: #0004 0 0 1rem;
 }
 
 a {
