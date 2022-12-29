@@ -22,7 +22,15 @@ const setupCounter = (input : HTMLInputElement | null, button : HTMLButtonElemen
   
   if (!input || !button || !element) return
 
+  /*
+  * Variables
+  */ 
+
   let counter : number = 0
+
+  /*
+  * Functions
+  */ 
 
   const setCounter : Function = () => {
 
@@ -41,6 +49,10 @@ const setupCounter = (input : HTMLInputElement | null, button : HTMLButtonElemen
     if (e.type === "keydown" && e.key ===  "Enter") setCounter()
     if (e.type === "click") setCounter()
   }
+
+  /*
+  * Eventts
+  */ 
 
   button.addEventListener('click', eventsConditions)
   input.addEventListener('keydown', eventsConditions)
