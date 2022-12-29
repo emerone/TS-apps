@@ -1,12 +1,50 @@
-.search {
-  padding: 2em 0 1em;
+#app {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.container {
+  box-shadow: #0003 0 0 1rem;
+  border: 1px solid #0001;
+  padding: .5rem;
+  border-radius: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  text-align: left;
+  color: #fffa;
+  padding-left: 0.6rem;
+}
+
+.calculator {
+  display: grid;
+  grid-template: auto / repeat(4, 5rem);
+  gap: 0.125rem;
+  --num-bg-color: #2c2c2c30;
+}
+
+.input {
+  grid-column: 1 / 5;
+  text-align: right;
+  height: 6rem;
   display: flex;
-  --border-color: #fff2;
-  --background: #1a1a1a;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.input > :first-child {
+  color: #fff8;
+  margin: 0 0 auto;
+}
+.input > :last-child {
+  color: #fffa;
+  margin: auto 0 1.5rem;
+  font-size: 2em; 
+  letter-spacing: 1px;
 }
 
 input {
-  padding: 0 0.8rem 0 1rem ;
   border: 1px solid var(--border-color);
   background-color: var(--background);
   border-radius: 125rem 0 0 125rem;
@@ -17,22 +55,20 @@ input:hover {
 }
 
 button {
-  border-radius: 0rem 125rem 125rem 0rem ;
-  border: 1px solid var(--border-color);
-  border-left: 0;
-  padding: 0.6em 1em;
-  padding-left: .9em;
-  font-size: 1em;
+  border-radius: 0.125rem ;
+  border: 1px solid transparent;
+  box-shadow: #0006 0 0 .125rem;
+  text-shadow: #000c 0 0 1rem;
+  background-color: var(--num-bg-color);
+  color: #fffa;
+  padding: 0.8em;
+  font-size: 1.1em;
   font-weight: 500;
-  font-family: inherit;
-  background-color: var(--background);
   cursor: pointer;
-  transition: all 0.25s ease;
-  outline: #646cff00 1px solid ;
-  outline-offset: -1px;
+  transition: all 0.25s ease-out;
 }
 button:hover {
-  outline-color: #646cff;
+  border-color: #646cff;
 }
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -42,5 +78,8 @@ button:focus-visible {
   .search {
     --border-color: #0002;
     --background: #f8f8f8;
+  }
+  button:hover {
+    outline-color: #afb3fa;
   }
 }
