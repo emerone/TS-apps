@@ -10,7 +10,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <p></p>
         <p></p>
       </div>  
-      <button negatif type="button">±</button>
+      <button negative type="button">±</button>
       <button clear type="button">CE</button>
       <button clear type="button">C</button>
       <button operator value="*" type="button">×</button>
@@ -38,14 +38,14 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 </div>
 `
 
-const buttons = document.querySelectorAll("button") as NodeListOf<HTMLButtonElement>
-const operators = document.querySelectorAll('button[operator]') as NodeListOf<HTMLButtonElement>
-const equal = document.querySelector('button[equal]') as HTMLButtonElement
-const backspace = document.querySelector('button[backspace]') as HTMLButtonElement
-const negatifBtn = document.querySelector('buton[negatif]') as HTMLButtonElement
-
-const firstLine = document.querySelector('.input > :first-child') as HTMLParagraphElement
-const lastLine = document.querySelector('.input > :last-child') as HTMLParagraphElement
+const buttons = document.querySelectorAll("button") as NodeListOf<HTMLButtonElement>;
+const operators = document.querySelectorAll('button[operator]') as NodeListOf<HTMLButtonElement>;
+const equal = document.querySelector('button[equal]') as HTMLButtonElement ;
+const backspace = document.querySelector('button[backspace]') as HTMLButtonElement ;
+const negativeBtn = document.querySelector('button[negative]') as HTMLButtonElement ;
+ 
+const firstLine = document.querySelector('.input > :first-child') as HTMLParagraphElement ;
+const lastLine = document.querySelector('.input > :last-child') as HTMLParagraphElement ;
 
 const setupCalculator: Function = () => {
   
@@ -62,31 +62,31 @@ const setupCalculator: Function = () => {
    * Functions
    */ 
 
-  const showVars : Function = () => {
+  const showToCalculator : Function = () : void => {
 
     lastLine.innerHTML = calculs.input
     firstLine.innerHTML = calculs.oldInput + calculs.operator
     if(lastLine.innerHTML === "") lastLine.innerHTML = "0"
   }
-  showVars()
+  showToCalculator()
 
-  const numberToLine : Function = (button : HTMLButtonElement) => {
+  const numberToLine : Function = (button : HTMLButtonElement) : void => {
 
     if (Number.isInteger(+button.innerHTML) === false || !button)  return
 
     calculs.input === "0" ? calculs.input =  button.innerHTML 
     : calculs.input = calculs.input + button.innerHTML ;
-    showVars()
+    showToCalculator()
   }
 
-  const clear : Function = (button : HTMLButtonElement) => {
+  const clear : Function = (button : HTMLButtonElement) : void => {
 
     if (!button) return
     
     if (button.innerHTML === "CE") {
 
       calculs.input = "0"
-      showVars()
+      showToCalculator()
     }
 
     if (button.innerHTML === "C") {
@@ -96,26 +96,26 @@ const setupCalculator: Function = () => {
       calculs.input = "0"
       canOperate = true
 
-      showVars()
+      showToCalculator()
     }
   }
 
-  const operation : Function = (button : HTMLButtonElement) => {
+  const addOperation : Function = (button : HTMLButtonElement): void => {
 
     if (!button) return
 
     calculs.operator = " " + button.innerHTML
-    showVars()
+    showToCalculator()
 
     if (canOperate === false) return
     
     calculs.oldInput = `${+calculs.input}`
     calculs.input = "0"
     canOperate = false
-    showVars()
+    showToCalculator()
   }
 
-  const calculate : Function = (a: string, operator: string, b: string) => {
+  const calculate : Function = (a: string, operator: string, b: string) : void => {
 
     if(!a || !operator || !b) return  
 
@@ -134,13 +134,18 @@ const setupCalculator: Function = () => {
     calculs.operator = ''
     canOperate = true
 
-    showVars()
+    showToCalculator()
   }
 
-  const removeLastChar : Function = () => {
+  const removeLastChar : Function = () : void => {
 
     calculs.input = calculs.input.slice(0, -1) 
-    showVars()
+    showToCalculator()
+  }
+
+  const negativeToInput : Function = () : void => {
+    calculs.input = `${+calculs.input  * -1}`
+    showToCalculator()
   }
 
   /*
@@ -156,7 +161,7 @@ const setupCalculator: Function = () => {
 
   operators.forEach(operator => {
     operator.onclick = () => {
-      operation(operator)
+      addOperation(operator)
     }
   })
 
@@ -170,6 +175,10 @@ const setupCalculator: Function = () => {
 
   backspace.onclick = () => {
     removeLastChar()
+  }
+
+  negativeBtn.onclick = () => {
+    negativeToInput()
   }
 }
 
