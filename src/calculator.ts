@@ -38,19 +38,19 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 </div>
 `
 
-const buttons = document.querySelectorAll("button") as NodeListOf<HTMLButtonElement>;
-const operators = document.querySelectorAll('button[operator]') as NodeListOf<HTMLButtonElement>;
-const equal = document.querySelector('button[equal]') as HTMLButtonElement ;
-const backspace = document.querySelector('button[backspace]') as HTMLButtonElement ;
-const negativeBtn = document.querySelector('button[negative]') as HTMLButtonElement ;
-const dotBtn = document.querySelector("button[dot]") as HTMLButtonElement
+const buttons = document.querySelectorAll("button") as NodeListOf<HTMLButtonElement> | null ;
+const operators = document.querySelectorAll('button[operator]') as NodeListOf<HTMLButtonElement> | null ;
+const equal = document.querySelector('button[equal]') as HTMLButtonElement | null ;
+const backspace = document.querySelector('button[backspace]') as HTMLButtonElement | null ;
+const negativeBtn = document.querySelector('button[negative]') as HTMLButtonElement | null ;
+const dotBtn = document.querySelector("button[dot]") as HTMLButtonElement | null ;
  
-const firstLine = document.querySelector('.input > :first-child') as HTMLParagraphElement ;
-const lastLine = document.querySelector('.input > :last-child') as HTMLParagraphElement ;
+const firstLine = document.querySelector('.input > :first-child') as HTMLParagraphElement | null ;
+const lastLine = document.querySelector('.input > :last-child') as HTMLParagraphElement | null ;
 
 const setupCalculator: Function = () => {
   
-  if (!buttons || !lastLine || !firstLine) return
+  if (!buttons || !operators || !equal || !backspace || !negativeBtn || !dotBtn) return
   
   /*
   * Variables 
@@ -64,6 +64,8 @@ const setupCalculator: Function = () => {
    */ 
 
   const showToCalculator : Function = () : void => {
+
+    if (!lastLine || !firstLine) return
 
     lastLine.innerHTML = calculs.input
     firstLine.innerHTML = calculs.oldInput + calculs.operator
@@ -81,8 +83,6 @@ const setupCalculator: Function = () => {
   }
 
   const clear : Function = (button : HTMLButtonElement) : void => {
-
-    if (!button) return
     
     if (button.innerHTML === "CE") {
 
@@ -102,8 +102,6 @@ const setupCalculator: Function = () => {
   }
 
   const addOperation : Function = (button : HTMLButtonElement): void => {
-
-    if (!button) return
 
     calculs.operator = " " + button.innerHTML
     showToCalculator()
@@ -144,11 +142,13 @@ const setupCalculator: Function = () => {
   }
 
   const negativeToInput : Function = () : void => {
+    
     calculs.input = `${+calculs.input  * -1}`
     showToCalculator()
   }
 
   const addDot : Function = () => {
+
     calculs.input = calculs.input + "."
     showToCalculator()
   }
