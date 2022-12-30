@@ -10,7 +10,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <p></p>
         <p></p>
       </div>  
-      <button value="negatif" type="button">±</button>
+      <button negatif type="button">±</button>
       <button clear type="button">CE</button>
       <button clear type="button">C</button>
       <button operator value="*" type="button">×</button>
@@ -28,7 +28,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <button operator value="+" type="button">+</button>
       <button value="." type="button">.</button>
       <button number value="0" type="button">0</button>
-      <button value="backspace" type="button">⇦</button>
+      <button backspace type="button">⇦</button>
       <button equal type="button">=</button>
     <div class="history">
     </div>
@@ -41,7 +41,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 const buttons = document.querySelectorAll("button") as NodeListOf<HTMLButtonElement>
 const operators = document.querySelectorAll('button[operator]') as NodeListOf<HTMLButtonElement>
 const equal = document.querySelector('button[equal]') as HTMLButtonElement
-const backspace = document.querySelector('button[value="backspace"]') as HTMLButtonElement
+const backspace = document.querySelector('button[backspace]') as HTMLButtonElement
+const negatifBtn = document.querySelector('buton[negatif]') as HTMLButtonElement
 
 const firstLine = document.querySelector('.input > :first-child') as HTMLParagraphElement
 const lastLine = document.querySelector('.input > :last-child') as HTMLParagraphElement
@@ -146,18 +147,6 @@ const setupCalculator: Function = () => {
    * Events 
    */ 
 
-  /*
-  ! bug with the first Event 
-  */
-
-  backspace.onclick = () => {
-    removeLastChar()
-  }
-
-  backspace.addEventListener("click", () => {
-    removeLastChar()
-  })
-
   buttons.forEach(button => {
     button.onclick = () => {
       clear(button)
@@ -177,6 +166,10 @@ const setupCalculator: Function = () => {
       calculs.operator,
       calculs.input
     )
+  }
+
+  backspace.onclick = () => {
+    removeLastChar()
   }
 }
 
