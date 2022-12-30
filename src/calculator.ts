@@ -26,7 +26,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <button number type="button">2</button>
       <button number type="button">3</button>
       <button operator value="+" type="button">+</button>
-      <button value="." type="button">.</button>
+      <button dot value="." type="button">.</button>
       <button number value="0" type="button">0</button>
       <button backspace type="button">⇦</button>
       <button equal type="button">=</button>
@@ -43,6 +43,7 @@ const operators = document.querySelectorAll('button[operator]') as NodeListOf<HT
 const equal = document.querySelector('button[equal]') as HTMLButtonElement ;
 const backspace = document.querySelector('button[backspace]') as HTMLButtonElement ;
 const negativeBtn = document.querySelector('button[negative]') as HTMLButtonElement ;
+const dotBtn = document.querySelector("button[dot]") as HTMLButtonElement
  
 const firstLine = document.querySelector('.input > :first-child') as HTMLParagraphElement ;
 const lastLine = document.querySelector('.input > :last-child') as HTMLParagraphElement ;
@@ -119,15 +120,14 @@ const setupCalculator: Function = () => {
 
     if(!a || !operator || !b) return  
 
-    let result : string 
+    let result : string  = "null"
 
     if (operator === " ÷") result = `${+a / +b }`;
-    else if (operator === " ×") result = `${+a * +b }`;
-    else if (operator === " -") result = `${+a - +b }`;
-    else if (operator === " +") result = `${+a + +b }`;
-    else return console.log("error", a, operator, b)
+    if (operator === " ×") result = `${+a * +b }`;
+    if (operator === " -") result = `${+a - +b }`;
+    if (operator === " +") result = `${+a + +b }`;
 
-    if (result === "NaN" || result === "Infinity" ) result = "0"
+    if (result === "NaN" || result === "Infinity" || result == "null") result = "0"
 
     calculs.input = result
     calculs.oldInput = ''
@@ -145,6 +145,11 @@ const setupCalculator: Function = () => {
 
   const negativeToInput : Function = () : void => {
     calculs.input = `${+calculs.input  * -1}`
+    showToCalculator()
+  }
+
+  const addDot : Function = () => {
+    calculs.input = calculs.input + "."
     showToCalculator()
   }
 
@@ -179,6 +184,10 @@ const setupCalculator: Function = () => {
 
   negativeBtn.onclick = () => {
     negativeToInput()
+  }
+
+  dotBtn.onclick = () => {
+    addDot()
   }
 }
 
