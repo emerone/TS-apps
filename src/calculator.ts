@@ -13,8 +13,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <button value="negatif" type="button">±</button>
       <button clear type="button">CE</button>
       <button clear type="button">C</button>
-      <button number type="button">⇦</button>
       <button operator value="*" type="button">×</button>
+      <button number type="button">7</button>
       <button number type="button">8</button>
       <button number type="button">9</button>
       <button operator value="/" type="button">÷</button>
@@ -38,20 +38,17 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 </div>
 `
 
-  /*
-  * Variables 
-  */ 
-
 const buttons = document.querySelectorAll("button") as NodeListOf<HTMLButtonElement>
 const operators = document.querySelectorAll('button[operator]') as NodeListOf<HTMLButtonElement>
 const equal = document.querySelector('button[equal]') as HTMLButtonElement
+const backspace = document.querySelector('button[value="backspace"]') as HTMLButtonElement
 
 const firstLine = document.querySelector('.input > :first-child') as HTMLParagraphElement
 const lastLine = document.querySelector('.input > :last-child') as HTMLParagraphElement
 
 const setupCalculator: Function = () => {
   
-  if (!buttons || !lastLine) return
+  if (!buttons || !lastLine || !firstLine) return
   
   /*
   * Variables 
@@ -61,12 +58,14 @@ const setupCalculator: Function = () => {
   let canOperate: boolean  = true
 
   /*
-   * Function 
+   * Functions
    */ 
 
   const showVars : Function = () => {
+
     lastLine.innerHTML = calculs.input
     firstLine.innerHTML = calculs.oldInput + calculs.operator
+    if(lastLine.innerHTML === "") lastLine.innerHTML = "0"
   }
   showVars()
 
@@ -74,65 +73,60 @@ const setupCalculator: Function = () => {
 
     if (Number.isInteger(+button.innerHTML) === false || !button)  return
 
-    button.onclick = () => {
-
-      let input: string = calculs.input
-
-      calculs.input === "0" ? calculs.input =  button.innerHTML : calculs.input = calculs.input + button.innerHTML ;
-      showVars()
-    }
+    calculs.input === "0" ? calculs.input =  button.innerHTML 
+    : calculs.input = calculs.input + button.innerHTML ;
+    showVars()
   }
 
   const clear : Function = (button : HTMLButtonElement) => {
+
+    if (!button) return
     
     if (button.innerHTML === "CE") {
-    
-      button.onclick = () => {
-        calculs.input = "0"
-        showVars()
-      }
+
+      calculs.input = "0"
+      showVars()
     }
 
     if (button.innerHTML === "C") {
-    
-      button.onclick = () => {
-        calculs.oldInput = ""
-        calculs.operator = ""
-        calculs.input = "0"
-        canOperate = true
-        showVars()
-      }
+        
+      calculs.oldInput = ""
+      calculs.operator = ""
+      calculs.input = "0"
+      canOperate = true
+
+      showVars()
     }
   }
 
   const operation : Function = (button : HTMLButtonElement) => {
 
-    button.onclick = () => {
+    if (!button) return
 
-      calculs.operator = " " + button.innerHTML
-      showVars()
+    calculs.operator = " " + button.innerHTML
+    showVars()
 
-      if (canOperate === false) return
-      
-      calculs.oldInput = `${+calculs.input}`
-      calculs.input = "0"
-      showVars()
-      canOperate = false
-    }
+    if (canOperate === false) return
+    
+    calculs.oldInput = `${+calculs.input}`
+    calculs.input = "0"
+    canOperate = false
+    showVars()
   }
 
   const calculate : Function = (a: string, operator: string, b: string) => {
+
     if(!a || !operator || !b) return  
 
     let result : string 
 
-     if (operator === " ÷") result = `${+a / +b }`;
+    if (operator === " ÷") result = `${+a / +b }`;
     else if (operator === " ×") result = `${+a * +b }`;
     else if (operator === " -") result = `${+a - +b }`;
     else if (operator === " +") result = `${+a + +b }`;
     else return console.log("error", a, operator, b)
 
-    if (result === "NaN") result = "0"
+    if (result === "NaN" || result === "Infinity" ) result = "0"
 
     calculs.input = result
     calculs.oldInput = ''
@@ -142,21 +136,47 @@ const setupCalculator: Function = () => {
     showVars()
   }
 
+  const removeLastChar : Function = () => {
+
+    calculs.input = calculs.input.slice(0, -1) 
+    showVars()
+  }
+
   /*
    * Events 
    */ 
 
+  /*
+  ! bug with the first Event 
+  */
+
+  backspace.onclick = () => {
+    removeLastChar()
+  }
+
+  backspace.addEventListener("click", () => {
+    removeLastChar()
+  })
+
   buttons.forEach(button => {
-    numberToLine(button)
-    clear(button)
+    button.onclick = () => {
+      clear(button)
+      numberToLine(button)
+    }
   })
 
   operators.forEach(operator => {
-    operation(operator)
+    operator.onclick = () => {
+      operation(operator)
+    }
   })
 
   equal.onclick = () => {
-    calculate(calculs.oldInput, calculs.operator, calculs.input)
+    calculate(
+      calculs.oldInput,
+      calculs.operator,
+      calculs.input
+    )
   }
 }
 
