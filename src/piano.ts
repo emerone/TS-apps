@@ -31,8 +31,17 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 </div>
 `
 
+const buttons = document.querySelectorAll('button') as NodeListOf<HTMLButtonElement> 
+
 const setupPiano: Function = () : void => {
   
+buttons.forEach(button => {
+  const letter : string | null = button.getAttribute('letter')
+
+  if ( letter === null) return
+  button.innerText = letter
+})
+
 }
 
 setupPiano()
