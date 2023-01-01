@@ -1,0 +1,62 @@
+#app {
+  border: 0;
+  box-shadow: 0 0 00 ;
+}
+
+.pianno-app {
+  padding: 4rem 3rem 0%;
+  background: #000b;
+  display: flex;
+  border-radius: .5rem;
+  box-shadow:  #0004 0 0 2rem;
+}
+
+.pianno-app > * {
+  position: relative;
+  display: inline-block;
+  border: #0004 solid 1px;
+  padding: 0.75rem 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+[white] {
+  background: #b1b1b1;
+  position: relative;
+  height: 14rem;
+  width: 4rem;
+  z-index: 1;
+  border-radius: 0 0 0.4rem 0.4rem;
+  margin-bottom: -1rem;
+  box-shadow:
+  inset #0003 0 0 .5rem 0 ;
+}
+[white]:first-child {
+  border-radius: .4rem 0% 0.4rem 0.4rem;
+}
+[white]:last-child {
+  border-radius: 0% 0.4rem 0.4rem 0.4rem;
+}
+[white]:not(:last-child) {
+  border-right: 0;
+}
+
+[black] {
+  border-radius: 0 0 0.3rem 0.3rem;
+  position: relative;
+  width: 2rem;
+  height: 9rem;
+  margin: 0 -1rem;
+  z-index: 2;
+  background: #111;
+  box-shadow: #0006 0 0 0.5rem 
+  ,inset #0008 0 -0.25rem 3px 0.25rem;
+}
+
+p {
+  margin: 3rem;
+}
+
+@media (prefers-color-scheme: light) {
+}
