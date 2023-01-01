@@ -48,7 +48,7 @@ const dotBtn = document.querySelector("button[dot]") as HTMLButtonElement | null
 const firstLine = document.querySelector('.input > :first-child') as HTMLParagraphElement | null ;
 const lastLine = document.querySelector('.input > :last-child') as HTMLParagraphElement | null ;
 
-const setupCalculator: Function = () => {
+const setupCalculator: Function = () : void => {
   
   if (!buttons || !operators || !equal || !backspace || !negativeBtn || !dotBtn) return
   
@@ -101,7 +101,7 @@ const setupCalculator: Function = () => {
     }
   }
 
-  const addOperation : Function = (button : HTMLButtonElement): void => {
+  const addOperation : Function = (button : HTMLButtonElement) : void => {
 
     calculs.operator = " " + button.innerHTML
     showToCalculator()
@@ -142,7 +142,7 @@ const setupCalculator: Function = () => {
   }
 
   const negativeToInput : Function = () : void => {
-    
+
     calculs.input = `${+calculs.input  * -1}`
     showToCalculator()
   }
