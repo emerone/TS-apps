@@ -4,7 +4,7 @@
 }
 
 .pianno-app {
-  padding: 4rem 3rem 0%;
+  padding: 3.5rem 3rem 0%;
   background: #000b;
   display: flex;
   border-radius: .5rem;
@@ -50,7 +50,7 @@
   height: 9rem;
   margin: 0 -1rem;
   z-index: 2;
-  background: #111;
+  background: linear-gradient(0deg, #111, #111e);
   box-shadow: #0006 0 0 0.5rem 
   ,inset #0008 0 -0.25rem 3px 0.25rem;
   color: #fffa;
