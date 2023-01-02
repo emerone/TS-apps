@@ -74,6 +74,7 @@ const setupPiano: Function = () : void => {
 
       const currentButton = document.querySelector(`[letter="${key}"]`) as HTMLButtonElement
       currentButton.classList.remove("active")
+      currentButton.attributes.removeNamedItem("class")
     }
   }
 
