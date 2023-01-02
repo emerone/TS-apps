@@ -54,6 +54,13 @@ const setupPiano: Function = () : void => {
     button.innerText = letter
   }) 
 
+  // ! FIX the function
+
+  const startSong : Function = (key : string) => {
+    const newURL : string = `public/${key}.mp3`
+    new Audio(newURL).play
+  }
+
 
   const giveActiveClass : Function = (e: KeyboardEvent) : void => {
 
@@ -75,6 +82,8 @@ const setupPiano: Function = () : void => {
       const currentButton = document.querySelector(`[letter="${key}"]`) as HTMLButtonElement
       currentButton.classList.remove("active")
       currentButton.attributes.removeNamedItem("class")
+
+      startSong()
     }
   }
 
