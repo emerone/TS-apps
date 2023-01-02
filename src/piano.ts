@@ -35,15 +35,48 @@ const buttonList = document.querySelectorAll('button') as NodeListOf<HTMLButtonE
 
 const setupPiano: Function = () : void => {
 
+  /**
+   * Variables 
+   */ 
+
   let lettersArray : string[] = [] ;
+  
+  /**
+   * Functions 
+   */ 
 
   if (buttonList) buttonList.forEach(button => {
 
     const letter = button.getAttribute("letter")
     if (!letter) return
-    lettersArray.push(letter)
+
+    lettersArray.push(letter.toUpperCase())
     button.innerText = letter
   }) 
+
+
+  const giveActiveClass : Function = (e: KeyboardEvent) : void => {
+
+    const key : string = e.key.toUpperCase()
+    
+    if (lettersArray.some(x => x === key)) {
+
+      const currentButton = document.querySelector(`[letter="${key}"]`) as HTMLButtonElement
+      currentButton.classList.add("active")
+    }
+  }
+
+  const removeActiveClass : Function = (e: KeyboardEvent) : void => {
+  }
+
+
+  /**
+   * Events
+   */ 
+
+  document.onkeydown = e => giveActiveClass(e)
+
+  document.onkeyup = e => removeActiveClass(e)
 }
 
 setupPiano()
