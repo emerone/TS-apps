@@ -67,6 +67,14 @@ const setupPiano: Function = () : void => {
   }
 
   const removeActiveClass : Function = (e: KeyboardEvent) : void => {
+
+    const key : string = e.key.toUpperCase()
+    
+    if (lettersArray.some(e => e === key)) {
+
+      const currentButton = document.querySelector(`[letter="${key}"]`) as HTMLButtonElement
+      currentButton.classList.remove("active")
+    }
   }
 
 
