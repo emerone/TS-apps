@@ -19,6 +19,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  transition: all 0.1s ease;
 }
 
 [white] {
@@ -42,6 +43,9 @@
 [white]:not(:last-child) {
   border-right: 0;
 }
+[white].active {
+  filter: brightness(0.85);
+}
 
 [black] {
   border-radius: 0 0 0.3rem 0.3rem;
@@ -54,6 +58,10 @@
   box-shadow: #0006 0 0 0.5rem 
   ,inset #0008 0 -0.25rem 3px 0.25rem;
   color: #fffa;
+  padding: 0.8rem 0%;
+}
+[black].active {
+  filter: brightness(0.55);
 }
 
 p {
