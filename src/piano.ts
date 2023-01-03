@@ -57,8 +57,8 @@ const setupPiano: Function = () : void => {
   // ! FIX the function
 
   const startSong : Function = (key : string) => {
-    const newURL : string = `public/${key}.mp3`
-    new Audio(newURL).play
+    const newURL : string = `${key}.mp3`
+    new Audio(newURL).play()
   }
 
 
@@ -83,7 +83,7 @@ const setupPiano: Function = () : void => {
       currentButton.classList.remove("active")
       currentButton.attributes.removeNamedItem("class")
 
-      startSong()
+      startSong(key)
     }
   }
 
