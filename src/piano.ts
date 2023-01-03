@@ -33,13 +33,14 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
 const buttonList = document.querySelectorAll('button') as NodeListOf<HTMLButtonElement> 
 
-const setupPiano: Function = () : void => {
+const setupPiano: Function = (): void => {
 
   /**
    * Variables 
    */ 
 
-  let lettersArray : string[] = [] ;
+  let lettersArray: string[] = []
+  let canPlaySong: {[key: string]: boolean} = {}
   
   /**
    * Functions 
@@ -54,28 +55,30 @@ const setupPiano: Function = () : void => {
     button.innerText = letter
   }) 
 
-  // ! FIX the function
-
-  const startSong : Function = (key : string) => {
-    const newURL : string = `${key}.mp3`
+  const startSong: Function = (key: string) => {
+    const newURL: string = `${key}.mp3`
     new Audio(newURL).play()
   }
 
 
-  const giveActiveClass : Function = (e: KeyboardEvent) : void => {
+  const giveActiveClass: Function = (e: KeyboardEvent): void => {
 
-    const key : string = e.key.toUpperCase()
+    const key: string = e.key.toUpperCase()
     
     if (lettersArray.some(x => x === key)) {
 
       const currentButton = document.querySelector(`[letter="${key}"]`) as HTMLButtonElement
       currentButton.classList.add("active")
+
+      if (canPlaySong[key] !== false) startSong(key)
+
+      canPlaySong[key] = false
     }
   }
 
-  const removeActiveClass : Function = (e: KeyboardEvent) : void => {
+  const removeActiveClass: Function = (e: KeyboardEvent): void => {
 
-    const key : string = e.key.toUpperCase()
+    const key: string = e.key.toUpperCase()
     
     if (lettersArray.some(e => e === key)) {
 
@@ -83,7 +86,7 @@ const setupPiano: Function = () : void => {
       currentButton.classList.remove("active")
       currentButton.attributes.removeNamedItem("class")
 
-      startSong(key)
+      canPlaySong[key] = true
     }
   }
 
