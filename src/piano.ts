@@ -98,6 +98,17 @@ const setupPiano: Function = (): void => {
   document.onkeydown = e => giveActiveClass(e)
 
   document.onkeyup = e => removeActiveClass(e)
+
+  buttonList.forEach(button => button.onclick = () => {
+    const key = button.innerHTML
+    startSong(key)
+
+    button.classList.add('active')
+    setTimeout(() => {
+      button.classList.remove('active')
+      button.attributes.removeNamedItem("class")
+    }, 500);
+  });
 }
 
 setupPiano()
