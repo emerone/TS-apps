@@ -14,7 +14,7 @@ Multiple apps in TS, CSS and HTML. Piano, calculator, stopwatch and counter for 
 
 ### Executing program
 
-* Download the project and execute "npm run dev" to run the program
+* Download the project and after installing te node modules, execute "npm run dev" to run the program
 
 ## License
 
